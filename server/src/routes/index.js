@@ -1,28 +1,40 @@
 const { Router } = require("express");
-const {postFav} = require('../Controllers/fav');
+const {getCountries, getCountry, getCountryName } = require('../Controllers/countries');
 
-const router = Router();
+const CountriesRouter = Router();
 
-router.get('/fav', async (req, res) => {
-    // res.send('Lista de usuarios');
-    const allUsers = await postFav();
+CountriesRouter.get('/countries', async (req, res) => {
+    const allUsers = await getCountries();
     res.status(200).json(allUsers)
-  });
+});
 
-//   usersRouter.get('/', async (req, res) => {
-//     const { name } = req.query;
+CountriesRouter.get('/countries/name',async (req, res)=>{
+    try {
+        const nameQuery = req.query.name; // Obtener el nombre por la url 
+        const countryQuery = await getCountryName(nameQuery);
 
-//     if (name) {
-//         const userFind = await getUserByName(name);
+        if(countryQuery.notFound) throw Error(countryQuery.notFound)
+        return res.status(200).json(countryQuery)
+        
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+});
 
-//         if (userFind.error) return res.status(404).json(userFind)
-//         return res.status(200).json(userFind)
-//     } else {
-//         const allUsers = await getAllUsers();
+CountriesRouter.get('/countries/:id',async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const country = await getCountry(id);
 
-//         res.status(200).json(allUsers)
-//     }
-// });
+        if(country.notFound) throw Error(country.notFound)
+        return res.status(200).json(country)
+        
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+});
 
 
-module.exports = router;
+
+
+module.exports = CountriesRouter;
