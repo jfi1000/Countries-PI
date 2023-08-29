@@ -1,5 +1,6 @@
 const express = require("express");
-const router = require("./routes");
+const countriesRouter = require("./routes/countries");
+const activitiesRouter = require("./routes/activities");
 const morgan = require("morgan");
 const cors = require("cors");
 
@@ -9,6 +10,9 @@ server.use(morgan("dev"));
 server.use(express.json());
 server.use(cors());
 
-server.use('/api/v1', router);
+//Modularización Rutas
+server.use('/api/v1/countries', countriesRouter);
+server.use('/api/v1/activities', activitiesRouter);
+
 
 module.exports = server;

@@ -3,12 +3,12 @@ const {getCountries, getCountry, getCountryName } = require('../Controllers/coun
 
 const CountriesRouter = Router();
 
-CountriesRouter.get('/countries', async (req, res) => {
+CountriesRouter.get('/', async (req, res) => {
     const allUsers = await getCountries();
     res.status(200).json(allUsers)
 });
 
-CountriesRouter.get('/countries/name',async (req, res)=>{
+CountriesRouter.get('/name',async (req, res)=>{
     try {
         const nameQuery = req.query.name; // Obtener el nombre por la url 
         const countryQuery = await getCountryName(nameQuery);
@@ -21,7 +21,7 @@ CountriesRouter.get('/countries/name',async (req, res)=>{
     }
 });
 
-CountriesRouter.get('/countries/:id',async (req, res)=>{
+CountriesRouter.get('/:id',async (req, res)=>{
     try {
         const {id} = req.params;
         const country = await getCountry(id);
@@ -33,8 +33,6 @@ CountriesRouter.get('/countries/:id',async (req, res)=>{
         return res.status(400).send(error.message)
     }
 });
-
-
 
 
 module.exports = CountriesRouter;

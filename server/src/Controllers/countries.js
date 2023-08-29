@@ -1,10 +1,14 @@
-const { Country } = require('../db');
+const { Country, Activities } = require('../db');
 const { Op } = require('sequelize'); // Necesario para hacer búsquedas insensibles a mayúsculas/minúsculas
 
 const getCountries = async () => await Country.findAll();
 
 const getCountry = async (id)=>{
-    const countryFound = await Country.findByPk(id);
+    const countryFound = await Country.findByPk(id,
+        {
+            include: Activities, // Incluye las actividades turísticas asociadas al país
+        }
+        );
 
     if(!countryFound) return {notFound: 'Country Not Found'}
     return countryFound
@@ -21,6 +25,7 @@ const getCountryName = async (name)=>{
     if(countryFound.length===0) return {notFound: 'Country Not Found By name'}
     return countryFound
 };
+
 
 module.exports = {
     getCountries,
