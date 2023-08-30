@@ -10,6 +10,8 @@ CountriesRouter.post('/', async (req, res) => {
         if (!nombre || !dificultad || !duracion|| !temporada || !countryIds) throw Error('Me falta info rey!')
         else {
             const newActivity = await postActivities(nombre, dificultad, duracion, temporada, countryIds)
+            if(newActivity.error) throw Error(newActivity.error)
+
             res.status(200).json(newActivity)
         }
     } catch (error) {
@@ -17,8 +19,8 @@ CountriesRouter.post('/', async (req, res) => {
     }
 });
 
-CountriesRouter.get('/', async (req, res) => {
-    res.status(200).json("iji")
-});
+// CountriesRouter.get('/', async (req, res) => {
+//     res.status(200).json("iji")
+// });
 
 module.exports = CountriesRouter;
