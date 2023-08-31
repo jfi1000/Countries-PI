@@ -1,4 +1,4 @@
-const { Activities,Country, ActivityCountry } = require('../db');
+const { Activities,Country } = require('../db');
 const { Op } = require('sequelize');
 
 
@@ -17,14 +17,13 @@ const postActivities = async (nombre, dificultad, duracion, temporada, countryId
     // })
     if (!created) {
         // throw new Error('La actividad ya existe');
-        return { error: 'Country Not Found' };
+        return { error: 'La actividad ya existe' };
 
     }
 
     const countries = await Country.findAll({ where: { id: { [Op.in]: countryIds } } });
 
     if (countries.length !== countryIds.length) {
-        // throw new Error('Algunos países no existen o tienen IDs incorrectos');
         return { error: 'Algunos países no existen o tienen IDs incorrectos' };
 
     }

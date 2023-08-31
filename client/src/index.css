@@ -5,23 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
   margin: 0;
   padding: 0;
-  /* background-image: url("../src/image/fondo.jpg"); */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../src/image/fondo.jpg');
-  background-size: cover;
-  background-position: center; /* Centrar la imagen */
-  background-repeat: no-repeat;
-  height: 100vh; /* Esto asegura que la imagen de fondo cubra todo el alto de la pantalla */
-
-  /* Estilos para el contenido */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-
+  background-color: #bde4c339; /* Cambia este valor al color que desees */
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

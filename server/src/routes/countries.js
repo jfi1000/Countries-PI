@@ -4,22 +4,41 @@ const {getCountries, getCountry, getCountryName } = require('../Controllers/coun
 const CountriesRouter = Router();
 
 CountriesRouter.get('/', async (req, res) => {
-    const allUsers = await getCountries();
-    res.status(200).json(allUsers)
-});
-
-CountriesRouter.get('/name',async (req, res)=>{
     try {
-        const nameQuery = req.query.name; // Obtener el nombre por la url 
-        const countryQuery = await getCountryName(nameQuery);
+        // Obtener el nombre por la url 
+        const {name} = req.query; 
+        if (name) {
+            const countryQuery = await getCountryName(name);
 
-        if(countryQuery.notFound) throw Error(countryQuery.notFound)
-        return res.status(200).json(countryQuery)
-        
+            if(countryQuery.notFound) throw Error(countryQuery.notFound)
+            return res.status(200).json(countryQuery)
+    
+        } else {
+            const allUsers = await getCountries();
+            res.status(200).json(allUsers)        
+        }
     } catch (error) {
-        return res.status(404).send(error.message)
+        
     }
 });
+
+// CountriesRouter.get('/', async (req, res) => {
+//     const allUsers = await getCountries();
+//     res.status(200).json(allUsers)
+// });
+
+// CountriesRouter.get('/name',async (req, res)=>{
+//     try {
+//         const nameQuery = req.query.name; // Obtener el nombre por la url 
+//         const countryQuery = await getCountryName(nameQuery);
+
+//         if(countryQuery.notFound) throw Error(countryQuery.notFound)
+//         return res.status(200).json(countryQuery)
+        
+//     } catch (error) {
+//         return res.status(404).send(error.message)
+//     }
+// });
 
 CountriesRouter.get('/:id',async (req, res)=>{
     try {

@@ -10,7 +10,7 @@ server.use(morgan("dev"));
 server.use(express.json());
 server.use(cors());
 
-//Modularización Rutas
+//Modularización_Rutas_
 server.use('/api/v1/countries', countriesRouter);
 server.use('/api/v1/activities', activitiesRouter);
 
