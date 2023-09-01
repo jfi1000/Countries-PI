@@ -49,7 +49,7 @@
 .input:valid ~ .label .label-char {
   transform: translateY(-20px);
   font-size: 14px;
-  color: #b4c3ff;
+  color: #c6cdea;
 }
 
 .bar {

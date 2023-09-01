@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import reactLogo from '../../../assets/react.svg'
+import reactLogo from '../../assets/react.svg'
 // import viteLogo from '../../../vite.svg'
 // import '../../../App.css'
-import styles from './HomePage.module.css'; // Importa el archivo de estilos de módulo
+import styles from './Landing.module.css'; // Importa el archivo de estilos de módulo
 import { Link } from 'react-router-dom';
 
 const HomePage = ()=>{
@@ -15,7 +15,7 @@ const HomePage = ()=>{
             </div>
             <h1>COUNTRIES</h1>
             <div className="card">
-                <Link to="/searchCountry">
+                <Link to="/home">
                     <button >Entrar</button>
                 </Link>
                 <h2>

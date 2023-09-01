@@ -1,0 +1,8 @@
+.container{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 9rem; /* Agrega un margen superior de 4 rem para hacer espacio */
+}
