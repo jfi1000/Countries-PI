@@ -1,10 +1,15 @@
+export const GET_COUNTRIES = "GET_COUNTRIES"
 import axios from 'axios';
 
-export const GET_COUNTRIES = "GET_COUNTRIES"
 
-export const getUsers = () => {
+export const getCountries = (searchTerm) => {
     try {
-        const endpoint = 'http://localhost:3001/api/v1/countries';
+        let endpoint = 'http://localhost:3001/api/v1/countries';
+
+        if(searchTerm){
+            endpoint += '?name='+searchTerm;
+        }
+        console.log(endpoint);
         return async (dispatch) => {
             const apiData = await axios.get(endpoint);
             return dispatch({
