@@ -10,7 +10,7 @@ const getCountry = async (id)=>{
         }
         );
 
-    if(!countryFound) return {notFound: 'Country Not Found'}
+    if(!countryFound) return {error: 'Country Not Found'}
     return countryFound
 };
 
@@ -22,7 +22,7 @@ const getCountryName = async (name)=>{
         }
     });
 
-    if(countryFound.length===0) return {notFound: 'Country Not Found By name'}
+    if(!countryFound || countryFound.length === 0) return {error: 'Country Not Found By name'}
     return countryFound
 };
 

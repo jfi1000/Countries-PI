@@ -1,6 +1,48 @@
+/* Home.module.css */
 .home {
-    display: flex;
-    flex-direction: column; /* Para asegurarse de que el contenido esté centrado */
-    margin-top: 1rem; /* Agrega un margen superior de 4 rem para hacer espacio */
+  width: 100%; /* Asegura que el componente ocupe todo el ancho disponible */
+  min-height: 100vh; /* Asegura que el componente ocupe al menos toda la altura de la pantalla */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  url('../src/image/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Cambiado a min-height */
+  display: flex;
+  flex-direction: column; /* Para asegurarse de que el contenido esté centrado */
+  /*margin-top: 4rem;  Agrega un margen superior de 4 rem para hacer espacio */
 
-    }
+  }
+
+/* .home {
+    display: flex;
+    flex-direction: column; 
+    margin-top: 1rem; 
+
+    } */
+
+
+    /* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

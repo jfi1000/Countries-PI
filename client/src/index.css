@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
-  background-color: #bde4c339; /* Cambia este valor al color que desees */
+  background-color: #ffffff; /* Cambia este valor al color que desees */
 }
 
 
@@ -20,7 +20,6 @@ code {
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -66,7 +65,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #254721;
     background-color: #ffffff;
   }
   a:hover {

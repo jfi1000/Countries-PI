@@ -1,12 +1,15 @@
 import style from './Card.module.css'
 const Card = (props)=>{
-    const {id, name, population, continent} = props
+    const {name, continent, flagImage} = props
     return(
-        <div className={style.card}> 
-            <h1>{id}</h1>
-            <h1>{name}</h1>
-            <h1>{continent}</h1>
-            <h1>{population}</h1>
+        <div className={style.container}> 
+            <div className={style.card}> 
+                <div>
+                    <img src={flagImage} className={style.imagen} />
+                </div>
+                <h3 className={style.name}>{name}</h3>
+                <h3 className={style.continent}>{continent}</h3>
+            </div>
         </div>
     )
 };

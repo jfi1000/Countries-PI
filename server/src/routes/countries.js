@@ -9,16 +9,16 @@ CountriesRouter.get('/', async (req, res) => {
         const {name} = req.query; 
         if (name) {
             const countryQuery = await getCountryName(name);
-
-            if(countryQuery.notFound) throw Error(countryQuery.notFound)
-            return res.status(200).json(countryQuery)
-    
+            if(countryQuery.error){
+                return res.status(404).json( {error: countryQuery.error} );
+            } 
+            return res.status(200).json(countryQuery)    
         } else {
             const allUsers = await getCountries();
             res.status(200).json(allUsers)        
         }
     } catch (error) {
-        
+        return res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
 
@@ -45,7 +45,7 @@ CountriesRouter.get('/:id',async (req, res)=>{
         const {id} = req.params;
         const country = await getCountry(id);
 
-        if(country.notFound) throw Error(country.notFound)
+        if(country.error) throw Error(country.error)
         return res.status(200).json(country)
         
     } catch (error) {

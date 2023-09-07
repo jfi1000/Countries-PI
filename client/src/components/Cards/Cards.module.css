@@ -1,8 +1,12 @@
 .container{
-    border: 1px solid black;
     display: flex;
+    justify-content: center; /*  Centra las tarjetas horizontalmente*/
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1em;
-    margin-top: 9rem; /* Agrega un margen superior de 4 rem para hacer espacio */
+    margin-top: 4rem; /* Agrega un margen superior de 4 rem para hacer espacio */
+    margin-left: 200px; /* Margen izquierdo de 20px */
+    margin-right: 200px; /* Margen derecho de 20px */
+    margin-bottom: 20px;
+
 }
+

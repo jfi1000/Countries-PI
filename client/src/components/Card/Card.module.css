@@ -1,6 +1,52 @@
-.card{
-    border: 1px solid black;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 10px;
+    .container {
+    display: flex;
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan cuando no haya suficiente espacio */
+}
+/* Estilos para las tarjetas */
+.card {
+    display: inline-block;
+    width: 150px;
+    /* Ajusta el ancho de la tarjeta según tus necesidades */
+    height: 200px;
+    /* Añade altura igual al ancho para hacerlo cuadrado */
+    text-align: center;
+    position: relative;
+    /* Añade posicionamiento relativo para que los elementos absolutos sean relativos a esta tarjeta */
+
+}
+
+.imagen {
+    width: 60px;
+    /* Tamaño de la imagen de 60x60px */
+    height: 60px;
+    /* Tamaño de la imagen de 60x60px */
+    border-radius: 50%;
+    /* border:1px solid #dadadab1 ; */
+    /* Hace que la imagen sea circular */
+    object-fit: cover;
+    /* Escala y recorta la imagen para que encaje en el círculo */
+    position: relative;
+    /* Añade posicionamiento relativo para que el z-index funcione */
+    z-index: 1;
+    /* Coloca la imagen sobre el fondo */
+}
+
+/* Estilos para el texto "name" */
+.name {
+    color: #ffffff;
+    font-size: 16px;
+    /* Tamaño de fuente para el nombre del país */
+    font-weight: bold;
+    /* Texto en negrita */
+    margin-top: 5px;
+    /* Espacio superior */
+}
+
+/* Estilos para el texto "continent" */
+.continent {
+    font-size: 12px;
+    /* Tamaño de fuente para el continente */
+    color: #ffffff;
+    /* Color de texto gris */
 }

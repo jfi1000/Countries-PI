@@ -1,0 +1,50 @@
+/* Estilo básico para la barra de continentes */
+.home {
+    text-align: center;
+}
+
+.continentsBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    height: 40px;
+    width: 100%;
+    position: absolute; 
+    bottom: 0; /* La fija en la parte inferior */
+    
+}
+
+
+.botonContinent {
+    background: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.botonContinent:hover {
+    background: rgba(170, 170, 170, 0.062);
+    transition: 0.5s;
+}
+
+
+/* Estilo para los botones de orden */
+.orderButtons {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Espacio entre los botones de continentes y orden */
+    margin-inline-start: auto;
+
+  }
+  
+  .orderButtons button {
+    background: none;
+    border: none;
+    margin-left: 10px; /* Espacio entre los botones de orden */
+  }
+  
+  .orderButtons button:hover {
+    background: rgba(170, 170, 170, 0.062);
+    transition: 0.5s;
+  }
+  
