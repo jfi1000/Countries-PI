@@ -8,7 +8,7 @@ const cargarPaises = async () => {
   // Cargar países desde la API y guardar en la base de datos
   const URL_API = 'http://localhost:5000/countries';
   try {
-    const response = await axios.get(URL_API); // Cambia esto con la URL real
+    const response = await axios.get(URL_API);
     const countriesData = response.data;
 
     const paisesPromises = countriesData.map(async (paisData) => {

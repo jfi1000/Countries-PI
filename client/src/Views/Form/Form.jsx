@@ -2,8 +2,9 @@ import styles from './Form.module.css';
 import image from '../../image/actividad.png'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries,saveForm } from '../../Redux/actions';
+import { getCountries, saveForm } from '../../Redux/actions';
 import SearchInput from '../Home/SearchInput/SearchInput';
+import validate from "./validate";
 
 const Form = () => {
     const countries = useSelector(state => state.countries);
@@ -33,7 +34,6 @@ const Form = () => {
 
     // Manejar cambios en la selección de opciones
     const handleSelectChange = (event) => {
-        // console.log(event.target.selectedOptions);
         const { name, value } = event.target;
 
         // Actualizar el estado de acuerdo al campo modificado
@@ -42,66 +42,88 @@ const Form = () => {
             [name]: value,
         });
 
-
-        if (name === 'nombre') {
-            if (value.length === 0) {
-                setErrores({
-                    ...errores,
-                    name: 'Nombre es obligatorio.',
-                });
-            } else {
-                setErrores({
-                    ...errores,
-                    name: '',
-                });
-            }
-        }
-
-
-        if (name === 'dificultad') {
-            if (value.length === 0) {
-                setErrores({
-                    ...errores,
-                    dificultad: 'dificultad es obligatorio.',
-                });
-            } else {
-                setErrores({
-                    ...errores,
-                    dificultad: '',
-                });
-            }
-        }
-
-        // if (name === 'temporada') {
-        //     if (value.length === 0) {
-        //         setErrores({
-        //             ...errores,
-        //             temporada: 'temporada es obligatorio.',
-        //         });
-        //     } else {
-        //         setErrores({
-        //             ...errores,
-        //             temporada: '',
-        //         });
-        //     }
-        // }
-
-        if (event.target.selectedOptions) {
-            const selectedOp = Array.from(event.target.selectedOptions, (option) => option.textContent);
-            const selectedOptionsKey = Array.from(event.target.selectedOptions, (option) => option.value);
-            
-            setForm({
-                ...form,
-                [name]: selectedOptionsKey,
-            });
-        
-            setSelectedOptions((prevSelectedOptions) => {
-                return [...prevSelectedOptions, ...selectedOp];
-            });
-        }
+        // Validar el campo específico
+        const respuesta = validate(name, value);
+        console.log(respuesta);
+        // setErrores(respuesta);
+        setErrores((erroresPrevios) => ({
+            ...erroresPrevios,
+            ...respuesta, 
+        }));
+                
     };
-    const options = countries.map(item => ({ label: item.name, value: item.id }));
 
+    // const handleSelectChange = (event) => {
+    //     // console.log(event.target.selectedOptions);
+    //     const { name, value } = event.target;
+
+    //     // Actualizar el estado de acuerdo al campo modificado
+    //     setForm({
+    //         ...form,
+    //         [name]: value,
+    //     });
+    //     setErrores(validate({...form, [name]: value }))
+
+    //     console.log(errores)
+
+    //     // if (name === 'nombre') {
+    //     //     if (value.length === 0) {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             name: 'Nombre es obligatorio.',
+    //     //         });
+    //     //     } else {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             name: '',
+    //     //         });
+    //     //     }
+    //     // }
+
+
+    //     // if (name === 'dificultad') {
+    //     //     if (value.length === 0) {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             dificultad: 'dificultad es obligatorio.',
+    //     //         });
+    //     //     } else {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             dificultad: '',
+    //     //         });
+    //     //     }
+    //     // }
+
+    //     // if (name === 'temporada') {
+    //     //     if (value.length === 0) {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             temporada: 'temporada es obligatorio.',
+    //     //         });
+    //     //     } else {
+    //     //         setErrores({
+    //     //             ...errores,
+    //     //             temporada: '',
+    //     //         });
+    //     //     }
+    //     // }
+
+    //     if (event.target.selectedOptions) {
+    //         const selectedOp = Array.from(event.target.selectedOptions, (option) => option.textContent);
+    //         const selectedOptionsKey = Array.from(event.target.selectedOptions, (option) => option.value);
+
+    //         setForm({
+    //             ...form,
+    //             [name]: selectedOptionsKey,
+    //         });
+
+    //         setSelectedOptions((prevSelectedOptions) => {
+    //             return [...prevSelectedOptions, ...selectedOp];
+    //         });
+    //     }
+    // };
+    const options = countries.map(item => ({ label: item.name, value: item.id }));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -139,18 +161,19 @@ const Form = () => {
                             onChange={handleSelectChange}
                             value={form.nombre}
                             placeholder="Nombre Activdad*" type="text" name="nombre" id="nombre" />
-                        <span>{errores.name}</span>
+                        <span>{errores.nombre}</span>
 
                         <input className={styles.input}
                             onChange={handleSelectChange}
                             value={form.dificultad}
-                            placeholder="Dificultad*" type="number" name="dificultad" id="dificultad" />
+                            placeholder="Dificultad*" type="text" name="dificultad" id="dificultad" />
                         <span>{errores.dificultad}</span>
 
                         <input className={styles.input}
                             onChange={handleSelectChange}
                             value={form.duracion}
-                            placeholder="Duración" type="number" name="duracion" id="duracion" />
+                            placeholder="Duración" type="text" name="duracion" id="duracion" />
+                        <span>{errores.duracion}</span>
 
                         <p>Temporada*:</p>
                         <label>
