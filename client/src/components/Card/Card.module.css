@@ -15,6 +15,12 @@
     /* Añade posicionamiento relativo para que los elementos absolutos sean relativos a esta tarjeta */
 
 }
+.botonImagen {
+    position: relative; /* Necesario para posicionar el efecto de resaltado */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+
+    /* Estilos básicos del botón */
+}
 
 .imagen {
     width: 60px;
@@ -30,8 +36,15 @@
     /* Añade posicionamiento relativo para que el z-index funcione */
     z-index: 1;
     /* Coloca la imagen sobre el fondo */
-}
+    transition: transform 0.3s ease; /* Agrega una transición suave al transform */
 
+}
+.botonImagen:hover .imagen {
+    transform: scale(1.1); /* Escala la imagen al 110% al pasar el mouse */
+    filter: brightness(1.2); /* Aumenta el brillo al pasar el mouse */
+  }
+  
+  
 /* Estilos para el texto "name" */
 .name {
     color: #ffffff;

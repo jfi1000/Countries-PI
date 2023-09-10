@@ -15,7 +15,7 @@ import styles from '../SearchInput/SearchInput.module.css';
 
     return(
     <div className={styles['wave-group']}>
-        <input required type="search" className={styles.input}  value={name} onChange={handleChange} />
+        <input  type="search" className={styles.input}  value={name} onChange={handleChange} />
         <span className={styles.bar}></span>
         <label className={styles.label}>
             <span className={styles['label-char']} style={{ '--index': 0 }}>C</span>

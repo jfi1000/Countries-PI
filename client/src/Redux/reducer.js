@@ -1,8 +1,8 @@
-import { GET_COUNTRIES } from "./actions";
-export const COUNTRY_NOT_FOUND = "COUNTRY_NOT_FOUND";
+import { GET_COUNTRIES, COUNTRY_NOT_FOUND, SAVE_FORM, GET_COUNTRY  } from "./actions";
 
 const initialState = {
     countries: [],
+    country: [],
     error: false 
 };
 
@@ -20,8 +20,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: true, // Establece el estado de error cuando no se encuentra un país
             };
-    
-        default:
+        case SAVE_FORM:
+            return {
+            ...state
+            };
+        case GET_COUNTRY:
+            return {
+                ...state,
+                country: action.payload,
+        };
+            default:
             return {
                 ...state,
             };

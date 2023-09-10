@@ -2,7 +2,7 @@ import styles from './Form.module.css';
 import image from '../../image/actividad.png'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries } from '../../Redux/actions';
+import { getCountries,saveForm } from '../../Redux/actions';
 import SearchInput from '../Home/SearchInput/SearchInput';
 
 const Form = () => {
@@ -10,12 +10,13 @@ const Form = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [form, setForm] = useState({
         nombre: "",
-        dificultad :"",
-        duracion :"",
-        temporada : "",
+        dificultad: "",
+        duracion: "",
+        temporada: "",
         countryIds: []
     });
-    
+    // let [selectedOptions, setSelectedOptions] = useState([]); // Almacena las opciones seleccionadas
+    const [selectedOptions, setSelectedOptions] = useState([]);
     const [errores, setErrores] = useState({
         nombre: '',
         dificultad: '',
@@ -29,7 +30,6 @@ const Form = () => {
         dispatch(getCountries(searchTerm));
     }, [searchTerm]);
 
-    let [selectedOptions, setSelectedOptions] = useState([]); // Almacena las opciones seleccionadas
 
     // Manejar cambios en la selección de opciones
     const handleSelectChange = (event) => {
@@ -87,10 +87,17 @@ const Form = () => {
         // }
 
         if (event.target.selectedOptions) {
-            const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.textContent);
+            const selectedOp = Array.from(event.target.selectedOptions, (option) => option.textContent);
             const selectedOptionsKey = Array.from(event.target.selectedOptions, (option) => option.value);
-
-            setSelectedOptions(selectedOptions);
+            
+            setForm({
+                ...form,
+                [name]: selectedOptionsKey,
+            });
+        
+            setSelectedOptions((prevSelectedOptions) => {
+                return [...prevSelectedOptions, ...selectedOp];
+            });
         }
     };
     const options = countries.map(item => ({ label: item.name, value: item.id }));
@@ -100,17 +107,17 @@ const Form = () => {
         e.preventDefault();
         // Crear un objeto con los datos del formulario
         const datos = form;
-console.log(datos);
+        console.log(datos);
         // Despachar una acción para guardar los datos
-        // dispatch(guardarDatos(datos));
+        dispatch(saveForm(datos));
         // Reiniciar los campos del formulario y los errores
         setForm({
             nombre: "",
-            dificultad :"",
-            duracion :"",
-            temporada : "",
+            dificultad: "",
+            duracion: "",
+            temporada: "",
             countryIds: []
-            });
+        });
         setErrores({
             nombre: '',
             dificultad: '',
@@ -124,7 +131,7 @@ console.log(datos);
             <div className={styles.rowAlignCenter}>
                 <div className={styles.columnLeft}>
                     <form onSubmit={handleSubmit}>
-                        
+
                         {/* Contenido de la columna izquierda */}
                         <h2>Comparte tus aventuras.</h2>
 
@@ -151,7 +158,9 @@ console.log(datos);
                                 type="radio"
                                 name="temporada"
                                 value="Otoño"
-                                />
+                                onChange={handleSelectChange}
+                                checked={form.temporada === "Otoño"}
+                            />
                             Otoño
                         </label>
                         <label>
@@ -159,7 +168,9 @@ console.log(datos);
                                 type="radio"
                                 name="temporada"
                                 value="Verano"
-                                />
+                                onChange={handleSelectChange}
+                                checked={form.temporada === "Verano"}
+                            />
                             Verano
                         </label>
                         <label>
@@ -167,7 +178,9 @@ console.log(datos);
                                 type="radio"
                                 name="temporada"
                                 value="Primavera"
-                                />
+                                onChange={handleSelectChange}
+                                checked={form.temporada === "Primavera"}
+                            />
                             Primavera
                         </label>
                         <label>
@@ -175,10 +188,12 @@ console.log(datos);
                                 type="radio"
                                 name="temporada"
                                 value="Invierno"
+                                onChange={handleSelectChange}
+                                checked={form.temporada === "Invierno"}
                             />
                             Invierno
                         </label>
-                                <span>{errores.temporada}</span>
+                        <span>{errores.temporada}</span>
 
                         <p>Selecciona el país.</p>
                         <SearchInput onSearch={setSearchTerm} />
@@ -187,6 +202,7 @@ console.log(datos);
                             className={styles.multiselect}
                             value={selectedOptions}
                             onChange={handleSelectChange}
+                            name='countryIds'
                         >
                             {options.map((option) => (
                                 <option key={option.value} value={option.value}>

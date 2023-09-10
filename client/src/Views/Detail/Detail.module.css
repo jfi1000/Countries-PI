@@ -1,0 +1,65 @@
+/* Home.module.css */
+.home {
+  width: 100%; /* Asegura que el componente ocupe todo el ancho disponible */
+  min-height: 100vh; /* Asegura que el componente ocupe al menos toda la altura de la pantalla */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  url('../../image/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Cambiado a min-height */
+  display: flex;
+  flex-direction: column; /* Para asegurarse de que el contenido esté centrado */
+  /*margin-top: 4rem;  Agrega un margen superior de 4 rem para hacer espacio */
+
+  }
+  .container{
+    display: flex;
+    justify-content: center; /*  Centra las tarjetas horizontalmente*/
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 4.6rem; /* Agrega un margen superior de 4 rem para hacer espacio */
+    margin-left: 100px; /* Margen izquierdo de 20px */
+    margin-right: 100px; /* Margen derecho de 20px */
+    margin-bottom: 20px;
+    color: rgba(58, 98, 50, 0.697);
+
+}
+body {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+ }
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Poppins", sans-serif; }
+
+/* Estilos para el contenedor principal */
+.container {
+    background-color: #f8f9fa;
+    padding: 30px;
+  }
+  
+  /* Estilos para la clase "row" con "align-items-center" */
+  .rowAlignCenter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Alinea el contenido horizontalmente en el centro */
+    align-items: center; /* Alinea verticalmente los elementos al centro */
+  }
+  
+  /* Estilos para la columna izquierda */
+  .columnLeft {
+    padding: 30px;
+    background-color: #fff;
+    border-right: 1px solid #dee2e6;
+  }
+  
+  /* Estilos para la columna derecha */
+  .columnRight {
+    padding: 30px;
+    background-color: #f8f9fa;
+
+  }
+  .tabla{
+    width: 100%
+  }

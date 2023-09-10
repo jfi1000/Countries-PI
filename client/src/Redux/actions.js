@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_COUNTRY = "GET_COUNTRY";
 export const COUNTRY_NOT_FOUND = "COUNTRY_NOT_FOUND";
+export const SAVE_FORM = "SAVE_FORM";
 
 export const getCountries = (searchTerm) => {
   return async (dispatch) => {
@@ -47,6 +49,45 @@ export const getCountries = (searchTerm) => {
   };
 };
 
+export const getCountry = (id) => {
+  return async (dispatch) => {
+    try {
+      let endpoint = 'http://localhost:3001/api/v1/countries/'+id;
+console.log(endpoint);
+      const apiData = await axios.get(endpoint);
+
+        return dispatch({
+          type: GET_COUNTRY,
+          payload: apiData.data,
+        });
+    } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+      }
+    }
+};
+
 export const countryNotFound = () => {
   return { type: COUNTRY_NOT_FOUND }
+};
+
+
+export const saveForm = (formData) => {
+  return async (dispatch) => {
+    try {
+      // Realiza la solicitud POST a la API
+      const response = await axios.post('http://localhost:3001/api/v1/activities', formData);
+
+      // Si la solicitud es exitosa, despacha una acción de éxito
+      dispatch({
+        type: SAVE_FORM,
+        payload: response.data, // Los datos de la actividad creada
+      });
+    } catch (error) {
+      // Si hay un error, puedes manejarlo dentro del catch
+      // Por ejemplo, puedes mostrar un mensaje de error o realizar otra acción necesaria
+      console.error('Error al crear la actividad:', error);
+
+      // No despaches una acción de error aquí
+    }
+  };
 };
