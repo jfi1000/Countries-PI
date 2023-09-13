@@ -17,13 +17,8 @@ const Form = () => {
         countryIds: []
     });
     // let [selectedOptions, setSelectedOptions] = useState([]); // Almacena las opciones seleccionadas
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [errores, setErrores] = useState({
-        nombre: '',
-        dificultad: '',
-        temporada: '',
-        countryIds: '',
-    });
+    const [errorgeneral, setErrorgeneral] = useState('');
+    const [errores, setErrores] = useState({});
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -32,25 +27,43 @@ const Form = () => {
     }, [searchTerm]);
 
 
-    // Manejar cambios en la selección de opciones
     const handleSelectChange = (event) => {
         const { name, value } = event.target;
-
-        // Actualizar el estado de acuerdo al campo modificado
-        setForm({
+        // setForm({
+        //     ...form,
+        //     [name]: value,
+        // });
+        const updatedForm = {
             ...form,
             [name]: value,
-        });
+        };
+        setForm(updatedForm);
 
-        // Validar el campo específico
-        const respuesta = validate(name, value);
-        console.log(respuesta);
-        // setErrores(respuesta);
-        setErrores((erroresPrevios) => ({
-            ...erroresPrevios,
-            ...respuesta, 
+        setErrores(validate({ ...form, [name]: value }))
+
+
+        console.log(form);
+    };
+
+    const updateSelectChange = (event) => {
+        const { value } = event.target;
+
+        // Verificamos si el valor ya existe en el array antes de agregarlo
+        if (!form.countryIds.includes(value)) {
+            setForm((prevForm) => ({
+                ...prevForm,
+                countryIds: [...prevForm.countryIds, value], // Agregar la nueva selección al array
+            }));
+        }
+    };
+
+    const handleRemoveSelection = (valueToRemove) => {
+        const updatedSelectValues = form.countryIds.filter((value) => value !== valueToRemove);
+
+        setForm((prevForm) => ({
+            ...prevForm,
+            countryIds: updatedSelectValues, // Actualizar el array sin la selección eliminada
         }));
-                
     };
 
     // const handleSelectChange = (event) => {
@@ -125,38 +138,70 @@ const Form = () => {
     // };
     const options = countries.map(item => ({ label: item.name, value: item.id }));
 
+    const submit = (event) => {
+        event.preventDefault();
+        const datos = form;
+        const errores = validate(form);
+        setErrores(errores);
+    
+        if (Object.keys(errores).length === 0) {
+            console.log('Formulario enviado:', form);
+            setErrorgeneral('Formulario enviado');
+            dispatch(saveForm(datos));
+            setForm({
+                nombre: "",
+                dificultad: "",
+                duracion: "",
+                temporada: "",
+                countryIds: []
+            });
+        }
+        else{
+            setErrorgeneral('Revisa tu información');
+        }
+    };
+    
+    // console.log(options);
     const handleSubmit = (e) => {
+        setErrores(validate({form}))
+
         e.preventDefault();
         // Crear un objeto con los datos del formulario
         const datos = form;
         console.log(datos);
-        // Despachar una acción para guardar los datos
-        dispatch(saveForm(datos));
-        // Reiniciar los campos del formulario y los errores
-        setForm({
-            nombre: "",
-            dificultad: "",
-            duracion: "",
-            temporada: "",
-            countryIds: []
-        });
-        setErrores({
-            nombre: '',
-            dificultad: '',
-            temporada: '',
-            countryIds: '',
-        });
+        console.log("errores ",errores);
+        if (!errores) {
+            console.log("entro ");
+
+            dispatch(saveForm(datos));
+            setForm({
+                nombre: "",
+                dificultad: "",
+                duracion: "",
+                temporada: "",
+                countryIds: []
+            });
+            setErrores({
+                nombre: '',
+                dificultad: '',
+                temporada: '',
+                countryIds: '',
+                general: ''
+            });
+            setErrorgeneral('');
+        } else {
+            setErrorgeneral('Revisa tu información');
+        }
+        
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.rowAlignCenter}>
                 <div className={styles.columnLeft}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={submit}>
 
-                        {/* Contenido de la columna izquierda */}
                         <h2>Comparte tus aventuras.</h2>
-
                         <input className={styles.input}
                             onChange={handleSelectChange}
                             value={form.nombre}
@@ -173,7 +218,8 @@ const Form = () => {
                             onChange={handleSelectChange}
                             value={form.duracion}
                             placeholder="Duración" type="text" name="duracion" id="duracion" />
-                        <span>{errores.duracion}</span>
+                        <span >{errores.duracion}</span>
+
 
                         <p>Temporada*:</p>
                         <label>
@@ -215,16 +261,16 @@ const Form = () => {
                                 checked={form.temporada === "Invierno"}
                             />
                             Invierno
-                        </label>
+                        </label><br />
                         <span>{errores.temporada}</span>
 
-                        <p>Selecciona el país.</p>
+                        {/* <p>Selecciona el país.</p> */}
                         <SearchInput onSearch={setSearchTerm} />
                         <select
                             multiple
                             className={styles.multiselect}
-                            value={selectedOptions}
-                            onChange={handleSelectChange}
+                            // value={selectedOptions}
+                            onChange={updateSelectChange}
                             name='countryIds'
                         >
                             {options.map((option) => (
@@ -233,18 +279,24 @@ const Form = () => {
                                 </option>
                             ))}
                         </select>
-                        <p>
-                            Opciones seleccionadas: {selectedOptions.join(', ')}
-                        </p>
+                        <h2>Selecciones:</h2>
+                        <ul>
+                            {form.countryIds.map((value, index) => (
+                            <li key={index}>
+                                {value}{' '}
+                                <span><button onClick={() => handleRemoveSelection(value)}>🗑️</button></span>
+                                {/* <button onClick={() => handleRemoveSelection(value)}>Eliminar</button> */}
+                            </li>
+                            ))}
+                        </ul>
                         <button type="submit">Guardar Datos</button>
                     </form>
 
                 </div>
                 <div className={styles.columnRight}>
                     {/* Contenido de la columna derecha */}
-                    <h2>Columna Derecha</h2>
+                    <h2>{errorgeneral}</h2>
                     <img src={image} width="100%" alt="" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
         </div>

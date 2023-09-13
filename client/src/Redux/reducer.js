@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
         case COUNTRY_NOT_FOUND:
             return {
                 ...state,
-                error: true, // Establece el estado de error cuando no se encuentra un país
+                error: true, 
             };
         case SAVE_FORM:
             return {

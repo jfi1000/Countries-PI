@@ -72,11 +72,11 @@ export const countryNotFound = () => {
 
 
 export const saveForm = (formData) => {
+  console.log("llego");
   return async (dispatch) => {
     try {
       // Realiza la solicitud POST a la API
       const response = await axios.post('http://localhost:3001/api/v1/activities', formData);
-
       // Si la solicitud es exitosa, despacha una acción de éxito
       dispatch({
         type: SAVE_FORM,
