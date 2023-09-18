@@ -36,8 +36,7 @@ const cargarPaises = async () => {
   }
 };
 
-
-  conn.sync({ force: true }).then(async () => {
+  conn.sync({ force: false }).then(async () => {
 
     await cargarPaises(); // Cargar los países al levantar el servidor
 

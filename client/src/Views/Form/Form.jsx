@@ -14,7 +14,8 @@ const Form = () => {
         dificultad: "",
         duracion: "",
         temporada: "",
-        countryIds: []
+        countryIds: [],
+        countryNames: [],
     });
     // let [selectedOptions, setSelectedOptions] = useState([]); // Almacena las opciones seleccionadas
     const [errorgeneral, setErrorgeneral] = useState('');
@@ -47,14 +48,23 @@ const Form = () => {
 
     const updateSelectChange = (event) => {
         const { value } = event.target;
-
-        // Verificamos si el valor ya existe en el array antes de agregarlo
+        const selectedNames = Array.from(event.target.selectedOptions).map((option) => option.getAttribute("name"));
+        // console.log("El valor del atributo 'name' es: " + selectedNames);
+    
+        // console.log(event.target.getAttribute("name"););
         if (!form.countryIds.includes(value)) {
             setForm((prevForm) => ({
                 ...prevForm,
                 countryIds: [...prevForm.countryIds, value], // Agregar la nueva selección al array
             }));
         }
+        if (!form.countryNames.includes(selectedNames)) {
+            setForm((prevForm) => ({
+                ...prevForm,
+                countryNames: [...prevForm.countryNames, selectedNames], // Agregar la nueva selección al array
+            }));
+        }
+
     };
 
     const handleRemoveSelection = (valueToRemove) => {
@@ -62,7 +72,7 @@ const Form = () => {
 
         setForm((prevForm) => ({
             ...prevForm,
-            countryIds: updatedSelectValues, // Actualizar el array sin la selección eliminada
+            countryIds: updatedSelectValues, 
         }));
     };
 
@@ -153,7 +163,8 @@ const Form = () => {
                 dificultad: "",
                 duracion: "",
                 temporada: "",
-                countryIds: []
+                countryIds: [],
+                countryNames: []
             });
         }
         else{
@@ -264,7 +275,6 @@ const Form = () => {
                         </label><br />
                         <span>{errores.temporada}</span>
 
-                        {/* <p>Selecciona el país.</p> */}
                         <SearchInput onSearch={setSearchTerm} />
                         <select
                             multiple
@@ -274,7 +284,7 @@ const Form = () => {
                             name='countryIds'
                         >
                             {options.map((option) => (
-                                <option key={option.value} value={option.value}>
+                                <option key={option.value} value={option.value} name={option.label}>
                                     {option.label}
                                 </option>
                             ))}

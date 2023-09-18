@@ -1,8 +1,9 @@
-import { GET_COUNTRIES, COUNTRY_NOT_FOUND, SAVE_FORM, GET_COUNTRY  } from "./actions";
+import { GET_COUNTRIES, COUNTRY_NOT_FOUND, SAVE_FORM, GET_COUNTRY, GET_ACTIVITIES  } from "./actions";
 
 const initialState = {
     countries: [],
     country: [],
+    activities: [],
     error: false 
 };
 
@@ -29,7 +30,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 country: action.payload,
         };
-            default:
+        case GET_ACTIVITIES:
+            return {
+                ...state,
+                activities: action.payload,
+        };
+        default:
             return {
                 ...state,
             };

@@ -1,19 +1,27 @@
-const { Activities,Country } = require('../db');
+const { Activities, Country } = require('../db');
 const { Op } = require('sequelize');
 
+const getActivities = async () => await Activities.findAll({
+    include: [
+        {
+            model: Country,
+            attributes: ['id', 'name', 'continent'], 
+        },
+    ],
+});
 
-const postActivities = async (nombre, dificultad, duracion, temporada, countryIds ) => {
+const postActivities = async (nombre, dificultad, duracion, temporada, countryIds) => {
     // const createActivity = await Activities.create({
     const [createActivity, created] = await Activities.findOrCreate({
-        where: { nombre: nombre }, // Busca una actividad con el mismo nombre
+        where: { nombre: nombre },
         defaults: {
-                            nombre, 
-                            dificultad, 
-                            duracion, 
-                            temporada
-                    },
-                });
-                
+            nombre,
+            dificultad,
+            duracion,
+            temporada
+        },
+    });
+
     // })
     if (!created) {
         // throw new Error('La actividad ya existe');
@@ -31,9 +39,10 @@ const postActivities = async (nombre, dificultad, duracion, temporada, countryId
     await createActivity.addCountries(countries);
 
     return createActivity
-    };
+};
 
 
 module.exports = {
-    postActivities
+    postActivities,
+    getActivities
 };

@@ -8,17 +8,17 @@ const Navbar = ({onSearch}) => {
         <div className={styles.navbar}>
         <nav>            
             <NavLink to='/'>
-                <button>Landing</button>
+                <button className={styles.buttonNav}>Landing</button>
             </NavLink>
 
             <Link to='/home'>
-                <button>Search Countries  </button>
+                <button className={styles.buttonNav} >Search Countries  </button>
             </Link>
 
             <NavLink to='/form'>
-                <button>Formulario</button>
+                <button className={styles.buttonNav}>Formulario</button>
             </NavLink>
-
+            
         </nav></div>
         </>
     )

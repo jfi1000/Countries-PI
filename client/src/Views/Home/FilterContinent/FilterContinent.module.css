@@ -7,19 +7,52 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333;
+    background-color: #253625;
     height: 40px;
     width: 100%;
     position: absolute; 
     bottom: 0; /* La fija en la parte inferior */
-    
 }
+
+
+
+
+.continent-button {
+  padding: 10px 20px;
+  background-color: #848b92;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.resaltado {
+  background-color: #ff5722;
+}
+
+
 
 
 .botonContinent {
     background: none;
     border: none;
     border-radius: 10px;
+}
+.botonContinentChecked {
+  background: none;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+.botonContinentChecked span {
+  color: white;
+}
+
+
+.botonContinent span {
+  color: white;
+}
+
+.orderButtons span {
+  color: white;
 }
 
 .botonContinent:hover {

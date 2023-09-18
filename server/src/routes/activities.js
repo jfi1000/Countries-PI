@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {postActivities } = require('../Controllers/activities');
+const {postActivities, getActivities } = require('../Controllers/activities');
 
 const CountriesRouter = Router();
 
@@ -19,8 +19,14 @@ CountriesRouter.post('/', async (req, res) => {
     }
 });
 
-// CountriesRouter.get('/', async (req, res) => {
-//     res.status(200).json("iji")
-// });
+CountriesRouter.get('/', async (req, res) => {
+    try {
+            const allActivities = await getActivities();
+            res.status(200).json(allActivities)        
+    } catch (error) {
+        return res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
 
 module.exports = CountriesRouter;

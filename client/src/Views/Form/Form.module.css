@@ -1,18 +1,17 @@
 .container{
     display: flex;
-    justify-content: center; /*  Centra las tarjetas horizontalmente*/
+    justify-content: center;  
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 4.6rem; /* Agrega un margen superior de 4 rem para hacer espacio */
-    margin-left: 100px; /* Margen izquierdo de 20px */
-    margin-right: 100px; /* Margen derecho de 20px */
+    margin-top: 4.6rem;  
+    margin-left: 100px;  
+    margin-right: 100px; 
     margin-bottom: 20px;
     color: rgba(58, 98, 50, 0.697);
-
 }
 body {
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
- }
+}
 
   h1, h2, h3, h4, h5, h6,
   .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -28,11 +27,10 @@ body {
   .rowAlignCenter {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Alinea el contenido horizontalmente en el centro */
-    align-items: center; /* Alinea verticalmente los elementos al centro */
+    justify-content: center; 
+    align-items: center; 
   }
   
-  /* Estilos para la columna izquierda */
   .columnLeft {
     flex: 1;
     padding: 30px;
@@ -40,14 +38,12 @@ body {
     border-right: 1px solid #dee2e6;
   }
   
-  /* Estilos para la columna derecha */
   .columnRight {
     flex: 1;
     padding: 30px;
     background-color: #f8f9fa;
   }
 
-  /* Estilos para campos de entrada inspirados en Google usando CSS Modules */
 .inputContainer {
     position: relative;
     margin-bottom: 20px;
@@ -63,10 +59,10 @@ body {
   
   .input {
     width: 100%;
-    padding: 10px 0; /* Añadimos espacio solo en la parte superior e inferior */
+    padding: 10px 0; 
     font-size: 16px;
-    border: none; /* Quitamos el borde */
-    border-bottom: 1px solid #ccc; /* Línea inferior */
+    border: none; 
+    border-bottom: 1px solid #ccc; 
     background-color: transparent; /* Fondo transparente */
     transition: all 0.2s ease-in-out;
     color: blue;

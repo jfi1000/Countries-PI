@@ -6,7 +6,7 @@ const getCountries = async () => await Country.findAll();
 const getCountry = async (id)=>{
     const countryFound = await Country.findByPk(id,
         {
-            include: Activities, // Incluye las actividades turísticas asociadas al país
+            include: Activities, 
         }
         );
 

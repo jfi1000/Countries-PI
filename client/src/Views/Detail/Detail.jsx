@@ -90,7 +90,7 @@ const Detail = () => {
                         </table>
                         {/* Contenido de la columna derecha */}
                         {/* <img src={image} width="100%" alt="" /> */}
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> */}
                     </div>
                 </div>
 
