@@ -21,6 +21,7 @@ const Home = () => {
     const itemsPerPage = 10;
     const [continent, setContinent] = useState('');
     const [activityselect, setActivityselect] = useState('');
+    const [reset, setReset] = useState('');
 
     useEffect(() => {
         dispatch(getCountries(searchTerm));
@@ -56,15 +57,21 @@ const Home = () => {
         let filtered = ordercountries;
 
         if (activityselect) {
-            filtered = filtered.filter(country =>
-                activities.some(activity =>
-                    activity.Countries.some(activityCountry =>
-                        activityCountry.name === country.name &&
-                        activity.nombre === activityselect
+            if (activityselect !== 'Todas las actividades') {
+                filtered = filtered.filter(country =>
+                    activities.some(activity =>
+                        activity.Countries.some(activityCountry =>
+                            activityCountry.name === country.name &&
+                            activity.nombre === activityselect
+                        )
                     )
-                )
-            );
+                );
+            }
+        }else {
+            filtered = filtered.filter(country => country);
+            console.log(filtered,'w');
         }
+        
 
         if (continent) {
             if (continent === 'All') {
@@ -83,12 +90,20 @@ const Home = () => {
                 (continent === 'America' &&
                     (country.continent === 'North America' || country.continent === 'South America'))
             );
-
+                console.log("entro-_");
             actividadesfilter = activities.filter(activity =>
-                activity.Countries.some(activityCountry =>
-                    activityCountry.continent === continent
-                )
+                activity.Countries.some(activityCountry => {
+                    if (continent === 'America') {
+                        return (
+                            activityCountry.continent === 'North America' ||
+                            activityCountry.continent === 'South America'
+                        );
+                    } else {
+                        return activityCountry.continent === continent;
+                    }
+                })
             );
+
 
         }
 
@@ -148,7 +163,9 @@ const Home = () => {
                 selectOrder={setSelectedOption}
                 activities={actividadesfilter}
                 activityselect={activityselect}
-                handleActivities={setActivityselect} />
+                handleActivities={setActivityselect}
+                handleResetActivity={() => setActivityselect('')}
+            />
         </div>
     );
 };

@@ -3,15 +3,18 @@ import styles from "./FilterContinent.module.css";
 
 
 const FilterContinent = ({ continent, toggleOrder, selectOrder, activities, handleActivities,activityselect }) => {
-    const [selectedContinent, setSelectedContinent] = useState(null);
+    const [selectedContinent, setSelectedContinent] = useState('All');
+    const [selectedActivity, setSelectedActivity] = useState('');
 
 
     const continents = (event) => {
         continent(event.target.textContent);
-        setSelectedContinent(event.target.textContent);    
+        setSelectedContinent(event.target.textContent);  
+                
     };
 
     const handleChangeSelect = (event) => {
+        setSelectedActivity(event.target.value);
         handleActivities(event.target.value);
         // toggleOrder(event.target.value === "population" ? 2 : 1);
     };
@@ -91,9 +94,9 @@ const FilterContinent = ({ continent, toggleOrder, selectOrder, activities, hand
                     </button>
                     
                     <div>
-                    <select id="activity" onChange={handleChangeSelect}>
+                    <select id="activity" onChange={handleChangeSelect} value={selectedActivity}>
                     <option>
-                        Selecciona una actividad
+                        Todas las actividades
                     </option>
 
                         {activities.map((activity, index) => (
